@@ -1,0 +1,79 @@
+﻿@model IEnumerable<DMSTask.Models.OrderHeader>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>My Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.DescriptionEn)
+                </td>
+                <td>
+                    <a asp-action="DisplayMyOrderDetails" asp-route-orderId="@item.Id">Display Order Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

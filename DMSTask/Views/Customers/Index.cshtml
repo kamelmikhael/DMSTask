@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DMSTask.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Customers</h1>
+
+<p>
+    @*<a asp-action="Create">Create New</a>*@
+</p>
+
+<form asp-controller="Customers" asp-action="Index" method="get">
+    <p>
+        Search: <input type="text" name="filter" value="@(ViewData["Filter"])"/>
+        <input type="submit" value="Search" class="btn btn-primary"/>
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescriptionEn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescriptionAr)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionEn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionAr)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CustomerCode">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CustomerCode">Details</a> @*|*@
+                @*<a asp-action="Delete" asp-route-id="@item.CustomerCode">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

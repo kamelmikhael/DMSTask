@@ -1,0 +1,57 @@
+﻿@model DMSTask.Models.OrderHeader
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+
+<h1>Order Details <button type="button" class="btn btn-primary" onclick="printOrder()">Print</button></h1>
+
+<p>
+    <b>Order Total Price:</b> @Model.TotalPrice  <br />
+    <b>Order Date:</b> @Model.OrderDate <br />
+    <b>Due Date:</b> @Model.DueDate <br />
+    <b>Status:</b> @Model.Status <br />
+    <b>Tax Value:</b> @Model.TaxValue <br />
+    <b>Discount Value:</b> @Model.DiscountValue <br />
+
+
+</p>
+
+@if (Model != null)
+{
+    <div class="row">
+        @foreach (var orderDetail in Model?.OrderDetails)
+        {
+            <div class="card bg-light mb-3 mr-3" style="max-width: 18rem;">
+                <div class="card-header"><h3>@orderDetail.Item?.Name</h3></div>
+                <div class="card-body">
+                    <h5 class="card-title">@orderDetail.Item?.Description</h5>
+                    <p class="card-text">
+                        Quantity (requested): <b>@orderDetail.Qty @orderDetail.Item?.UnitOfMeasure?.UOM</b> <br />
+                        Item Price : <b>@orderDetail.ItemPrice</b> <br />
+                        Tax: <b>@orderDetail.Tax</b> <br />
+                        Discount: <b>@orderDetail.Discount</b> <br />
+                        <b>Total Price: @orderDetail.TotalPrice</b> <br />
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>
+
+
+<script>
+    function printOrder() {
+        $('.btn').hide();
+
+        window.print();
+
+        $('.btn').show();
+    }
+</script>

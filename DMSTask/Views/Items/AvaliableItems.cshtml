@@ -1,0 +1,26 @@
+﻿@model IEnumerable<DMSTask.Models.Item>
+
+@{
+    ViewData["Title"] = "Avaliable Items";
+}
+
+<h1>Avaliable Items</h1>
+<br />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="card bg-light mb-3 mr-3" style="max-width: 18rem;">
+            <div class="card-header"><h3>@item.Name</h3></div>
+            <div class="card-body">
+                <h5 class="card-title">@item.Description</h5>
+                <p class="card-text">
+                    Avliabale Quantity : <b>@item.Quantity @item.UnitOfMeasure?.UOM</b> <br />
+                    Item Price : <b>@item.Price</b>
+                </p>
+            </div>
+            <div class="card-footer text-center">
+                <a class="btn btn-primary" asp-controller="Items" asp-action="AddToCard" asp-route-id="@item.Id">Add To Card</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,47 @@
+﻿@model DMSTask.Models.OrderHeader
+
+@{
+    ViewData["Title"] = "Your Card";
+}
+
+<h1>Your Card</h1>
+
+@if (Model?.OrderDetails?.Count > 0)
+{
+    <p>
+        <b>Order Total Price:</b> @Model.TotalPrice  <br />
+        <b>Order Date:</b> @Model.OrderDate <br />
+
+        <a class="btn btn-primary" asp-action="SaveOrder" asp-route-orderId="@Model.Id">Save Order</a>
+    </p>
+}
+else
+{
+    <p>No Items in your card. Please go to <a asp-action="AvaliableItems">avaliable items</a> and add some. </p>
+}
+
+@if (Model != null)
+{
+    <div class="row">
+        @foreach (var orderDetail in Model?.OrderDetails)
+        {
+            <div class="card bg-light mb-3 mr-3" style="max-width: 18rem;">
+                <div class="card-header"><h3>@orderDetail.Item?.Name</h3></div>
+                <div class="card-body">
+                    <h5 class="card-title">@orderDetail.Item?.Description</h5>
+                    <p class="card-text">
+                        Quantity (requested): <b>@orderDetail.Qty @orderDetail.Item?.UnitOfMeasure?.UOM</b> <br />
+                        Item Price : <b>@orderDetail.ItemPrice</b> <br />
+                        Tax: <b>@orderDetail.Tax</b> <br />
+                        Discount: <b>@orderDetail.Discount</b> <br />
+                        <b>Total Price: @orderDetail.TotalPrice</b> <br />
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <a class="btn btn-danger" asp-controller="Items" asp-action="RemoveFromCard" asp-route-orderDetailId="@orderDetail.Id">Remove</a>
+                    <a class="btn btn-primary" asp-controller="Items" asp-action="AddToCard" asp-route-id="@orderDetail.Item?.Id">Add To Card</a>
+                </div>
+            </div>
+        }
+    </div>
+}
